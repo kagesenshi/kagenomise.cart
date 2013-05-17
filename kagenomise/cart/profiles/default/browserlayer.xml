@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<layers>
+    <layer name="kagenomise.cart"
+        interface="kagenomise.cart.interfaces.IProductSpecific" />
+</layers>
