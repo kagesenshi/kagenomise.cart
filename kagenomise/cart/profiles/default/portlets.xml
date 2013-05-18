@@ -2,5 +2,9 @@
 <portlets>
 
     <!-- -*- extra stuff goes here -*- -->
+ <portlet 
+   addview="kagenomise.cart.portlet.CartPortlet"
+   title="Cart Portlet"
+   description=""/>
 
 </portlets>
