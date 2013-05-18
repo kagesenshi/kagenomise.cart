@@ -5,13 +5,5 @@
 
     <include package="plone.app.portlets" file="permissions.zcml"/>
     <!-- -*- extra stuff goes here -*- -->
-    <plone:portlet
-        name="kagenomise.cart.portlet.CartPortlet"
-        interface=".cartportlet.ICartPortlet"
-        assignment=".cartportlet.Assignment"
-        renderer=".cartportlet.Renderer"
-        addview=".cartportlet.AddForm"
-        editview=".cartportlet.EditForm"
-        />
 
 </configure>

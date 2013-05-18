@@ -24,4 +24,12 @@ $(document).ready(function () {
                 { view: "remove" , text: "Remove" , label: false }
         ]
     })
+
+    $(".cartInfo").toggle(function(){
+        $("#cartPopover").show();
+        $(".cartInfo").addClass('open');
+    }, function(){
+        $("#cartPopover").hide();
+        $(".cartInfo").removeClass('open');
+    });
 });
