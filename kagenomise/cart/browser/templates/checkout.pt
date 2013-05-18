@@ -6,9 +6,35 @@
 <head>
 </head>
 <body>
+    <div metal:fill-slot="content-title">
+        <h1>Checkout</h1>
+    </div>
   <div metal:fill-slot="content-core">
-    <div metal:define-macro="content-core">
-        Hello world
+      <div metal:define-macro="content-core">
+          <metal:block use-macro="context/ploneform-macros/titlelessform">
+              <metal:block fill-slot="actions">
+                    <tal:r replace="structure view/cart_hiddeninput"/>
+                   <table style="width:100%">
+                      <thead>
+                          <tr>
+                              <th>Item</th>
+                              <th>Quantity</th>
+                              <th>Unit Price</th>
+                              <th>Total</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr tal:repeat="row view/tablerows">
+                            <td tal:content="row/title"></td>
+                            <td tal:content="row/quantity"></td>
+                            <td tal:content="row/unit_price"></td>
+                            <td tal:content="row/total"></td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <metal:block use-macro="context/ploneform-macros/actions"/> 
+              </metal:block>
+          </metal:block>
     </div>
   </div>
 </body>
