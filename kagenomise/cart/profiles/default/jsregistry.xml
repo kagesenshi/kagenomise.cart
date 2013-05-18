@@ -3,4 +3,23 @@
 
     <!-- -*- extra stuff goes here -*- -->
 
+
+ <javascript id="++resource++kagenomise.cart/simpleCart.js" 
+        cacheable="True"
+        enabled="True"
+        cookable="True"
+        compression="safe"
+        inline="False"
+        authenticated="False"/>
+
+ <javascript id="++resource++kagenomise.cart/script.js" 
+        insert-after="++resource++kagenomise.cart/simpleCart.js"
+        cacheable="True"
+        enabled="True"
+        cookable="True"
+        compression="safe"
+        inline="False"
+        authenticated="False"/>
+
+
 </object>
