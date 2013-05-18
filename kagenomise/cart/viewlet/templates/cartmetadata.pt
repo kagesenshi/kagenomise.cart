@@ -1,0 +1,2 @@
+<meta id="kagenomise-cartmetadata" 
+    tal:attributes="checkout-url string:${context/portal_url}/checkout"/>
