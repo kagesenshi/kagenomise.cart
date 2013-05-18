@@ -23,20 +23,19 @@
     margin-left: 30px;
     cursor: pointer;
     -webkit-transition: background-color .2s linear;
+    float:right;
 }
 
 #cartPopover{
+    font-size:14px;
     position:absolute;
-    width:218px;
-    top:72px;
+    width:508px;
     right:14px;
     z-index:9999;
     display:none;
-    
     color:#fff;
     text-shadow:1px 1px 0 rgba(0,0,0,.8);
-    font-family:"FreightSansMedium", sans-serif;
-    
+    margin-top: 7px;
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
     border-radius:4px;
@@ -55,9 +54,13 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484a', endColorstr='#2a2b2c',GradientType=0 ); /* IE6-9 */
 }
 
+#cartPopover table {
+    width:100%;
+}
+
 #triangle{
     position: absolute;
-    left: 50%;
+    right: 5%;
     margin-left: -12px;
     color: #45484A;
     top: -21px;
@@ -70,11 +73,9 @@
 #cartPopover .itemRow{
     border-bottom:1px solid #2B2D2E;
     border-top:1px solid #434547;
-    padding:10px;
-    height:12px;
 }
-#cartPopover .itemRow div{
-    float:left;
+#cartPopover .itemRow td {
+    padding:5px;
 }
 #cartPopover .item-custom{
     width:35px;
@@ -84,7 +85,6 @@
     float:left;
     height:13px;
     display:inline-block;
-    font-family:"Trebuchet MS", sans-serif;
     width:23px;
     text-align:right;
 }
@@ -103,11 +103,12 @@
 }
 #cartPopover .item-name{
     float:left;
-    width:90px;
+    width:120px;
     white-space: nowrap;
     overflow: hidden;              
     text-overflow: ellipsis;
 }
+
 #cartPopover .itemRow .item-total{
     float:right;
 }
@@ -116,7 +117,6 @@
     padding:10px;
 }
 #cartData strong{
-    font-family:"FreightSans", sans-serif;
 }
 #popoverButtons{
     padding:10px;
@@ -128,7 +128,7 @@
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:3px;
-    font:bold 13px/26px "FreightSans", sans-serif;
+    font:bold 13px/26px;
     color:#d9d9d9;
     text-shadow:1px 1px 1px rgba(0,0,0,.5);
     padding:0 12px;

@@ -9,7 +9,7 @@ from kagenomise.cart.interfaces import IProductSpecific
 grok.templatedir('templates')
 
 class CartViewlet(grok.Viewlet):
-    grok.context(IContentish)
+    grok.context(Interface)
     grok.viewletmanager(manager.IPortalHeader)
     grok.template('cartviewlet')
     grok.layer(IProductSpecific)
