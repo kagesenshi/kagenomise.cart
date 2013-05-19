@@ -26,7 +26,8 @@ class ICheckoutSchema(form.Schema):
     )
 
     verify_email = schema.TextLine(
-        title=_(u'Verify Email')
+        title=_(u'Verify Email'),
+        description=_(u'Type your email address here again for verification'),
     )
 
     recipient_phone = schema.TextLine(

@@ -1,4 +1,8 @@
 <div id="kagenomise-cart-cartviewlet">
+    <div style="float:left;font-size:12px">
+        This ordering system is still under testing and development, if you have trouble
+        ordering through here, email me at izhar@kagesenshi.org
+    </div>
     <div class="cartCheckout cartButton">
         <a href="javascript:;" class="simpleCart_checkout">Checkout</a>
     </div>

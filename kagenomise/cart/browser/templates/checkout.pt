@@ -7,7 +7,10 @@
 </head>
 <body>
     <div metal:fill-slot="content-title">
-        <h1>Checkout</h1>
+        <h1>Order / Checkout</h1>
+    </div>
+    <div metal:fill-slot="content-description">
+        <p>Please fill in your contact details. We will contact you as soon as possible after receiving your order</p>
     </div>
   <div metal:fill-slot="content-core">
       <div metal:define-macro="content-core">
