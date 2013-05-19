@@ -5,7 +5,7 @@
 ********************************/
 
 .cartButton {
-    width: 60px;
+
     font-size: 13px;
     font-weight: bold;
     color: #6e6e6e;
@@ -16,23 +16,26 @@
     -webkit-box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
     -moz-box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
     box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
-    padding: 7px 8px 6px 33px;
+    padding: 7px 8px 6px 8px;
     line-height: 18px;
     position: relative;
     cursor: pointer;
     -webkit-transition: background-color .2s linear;
-    float:right;
-    margin-left:10px;
+    background: #EFF1F4;
 }
 
 .cartInfo {
     background: #EFF1F4 url(sprite.png) -218px -2px;
+    float:right;
+    padding: 7px 8px 6px 33px;
+    margin-left:10px;
+    width: 60px;
 }
 
 .cartCheckout {
     background: #97c865;
-    width:auto;
-    padding: 7px 8px 6px 8px;
+    float:right;
+    margin-left:10px;
 }
 
 .cartCheckout a {
