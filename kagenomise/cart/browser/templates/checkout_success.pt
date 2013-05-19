@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master">
+      <head>
+          <metal:fill fill-slot="javascript_head_slot">
+              <script>
+                  $(document).ready(function () {
+                    simpleCart.empty();
+                  });
+            </script>
+          </metal:fill>
+</head>
+<body>
+    <div metal:fill-slot="content-title">
+        <h1>Thank You For Your Order</h1>
+    </div>
+    <div metal:fill-slot="content-core">
+        We will contact you with the payment details as soon as possible :-)
+    </div>
+</body>
+</html>

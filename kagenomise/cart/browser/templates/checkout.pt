@@ -13,8 +13,9 @@
       <div metal:define-macro="content-core">
           <metal:block use-macro="context/ploneform-macros/titlelessform">
               <metal:block fill-slot="actions">
+
                     <tal:r replace="structure view/cart_hiddeninput"/>
-                   <table style="width:100%">
+                   <table style="width:100%" class="listing">
                       <thead>
                           <tr>
                               <th>Item</th>
@@ -32,8 +33,11 @@
                         </tr>
                       </tbody>
                   </table>
+
+                  <tal:block tal:replace="structure context/@@captcha/image_tag"/>
                   <metal:block use-macro="context/ploneform-macros/actions"/> 
               </metal:block>
+
           </metal:block>
     </div>
   </div>

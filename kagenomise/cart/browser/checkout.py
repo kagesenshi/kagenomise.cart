@@ -1,14 +1,16 @@
 from five import grok
 from Products.CMFCore.interfaces import ISiteRoot
 from zope.component import getUtility
-from kagenomise.cart.interfaces import ICheckoutProcessor
+from kagenomise.cart.interfaces import CheckoutEvent
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from plone.directives import dexterity, form
 from kagenomise.cart import MessageFactory as _
 import z3c.form.button
-
+from zope.event import notify
 import re
+from Products.statusmessages.interfaces import IStatusMessage
+
 grok.templatedir('templates')
 
 optionspattern = re.compile('(.*):(.*)')
@@ -23,12 +25,16 @@ class ICheckoutSchema(form.Schema):
         title=_(u'Email'),
     )
 
+    verify_email = schema.TextLine(
+        title=_(u'Verify Email')
+    )
+
     recipient_phone = schema.TextLine(
         title=_(u'Phone'),
     )
 
-    shipment_address = schema.Text(
-        title=_(u'Shipment Address'),
+    shipping_address = schema.Text(
+        title=_(u'Shipping Address'),
     )
 
 class Checkout(form.SchemaForm):
@@ -44,6 +50,10 @@ class Checkout(form.SchemaForm):
     schema = ICheckoutSchema
 
     template = ViewPageTemplateFile('templates/checkout.pt')
+
+    def status(self):
+        messages = IStatusMessage(self.request)
+        return messages.show()
 
     def tablerows(self):
         rows = []
@@ -107,17 +117,30 @@ class Checkout(form.SchemaForm):
     @z3c.form.button.buttonAndHandler(_(u'Submit'), name='submit')
     def submit(self, action):
         data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
+        if errors: 
+            return
+
+        if data['recipient_email'] != data['verify_email']:
+            IStatusMessage(self.request).add(u'Emails did not match',
+                            type='error')
+            return
+
+        if not self.context.restrictedTraverse('@@captcha').verify():
+            IStatusMessage(self.request).add(u'Invalid Captcha', type='error')
             return
 
         checkoutdata = {
             'recipient_name': data['recipient_name'],
-            'shipment_address': data['shipment_address'],
+            'shipping_address': data['shipping_address'],
             'recipient_email': data['recipient_email'],
             'recipient_phone': data['recipient_phone'],
             'items': self.items()
         }
 
-        checkout = getUtility(ICheckoutProcessor)
-        checkout.checkout(checkoutdata)
+        notify(CheckoutEvent(self.context, checkoutdata))
+
+class CheckoutSuccess(grok.View):
+    grok.context(ISiteRoot)
+    grok.name('checkout_success')
+    grok.require('zope2.View')
+    grok.template('checkout_success')

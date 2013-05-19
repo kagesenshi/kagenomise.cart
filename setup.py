@@ -33,6 +33,7 @@ setup(name='kagenomise.cart',
           'collective.dexteritytextindexer',
           'plone.app.multilingual',
           'plone.multilingualbehavior',
+          'collective.recaptcha',
           # -*- Extra requirements: -*-
       ],
       extras_require={
