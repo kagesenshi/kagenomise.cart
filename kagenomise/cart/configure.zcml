@@ -17,5 +17,6 @@
     <include package=".portlet"/>
 
     <!-- -*- extra stuff goes here -*- -->
+    <cmf:registerDirectory name="kagenomise_cart"/>
 
 </configure>

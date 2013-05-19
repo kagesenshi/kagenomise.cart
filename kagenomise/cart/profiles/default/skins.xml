@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+    <object name="kagenomise_cart"
+        meta_type="Filesystem Directory View"
+        directory="kagenomise.cart:skins/kagenomise_cart"/>
+    <skin-path name="*">
+        <layer name="kagenomise_cart"
+                insert-after="custom"/>
+    </skin-path>
+</object>
