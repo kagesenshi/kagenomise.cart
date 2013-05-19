@@ -12,3 +12,8 @@ class CheckoutEvent(object):
     def __init__(self, context, data):
         self.context = context
         self.data = data
+
+class IItemTitle(Interface):
+    
+    def getTitle(data):
+        pass

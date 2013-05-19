@@ -1,7 +1,7 @@
 from five import grok
 from Products.CMFCore.interfaces import ISiteRoot
 from zope.component import getUtility
-from kagenomise.cart.interfaces import CheckoutEvent
+from kagenomise.cart.interfaces import CheckoutEvent, IItemTitle
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from plone.directives import dexterity, form
@@ -10,6 +10,7 @@ import z3c.form.button
 from zope.event import notify
 import re
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFCore.interfaces import IContentish
 
 grok.templatedir('templates')
 
@@ -60,14 +61,25 @@ class Checkout(form.SchemaForm):
         rows = []
 
         for item in self.items():
+            if item.has_key('path'):
+                obj = self.context.unrestrictedTraverse(str(item['path']))
+                title = IItemTitle(obj).getTitle(item)
+            else:
+                title = item['name']
             row = {
-                'title': '%s (%s)' % (item['name'], item['size']),
+                'title': title,
                 'quantity': item['quantity'],
-                'unit_price': '%s %s' % (item['currency'], item['price']),
-                'total': '%s %s' % (item['currency'], item['price'] * item['quantity'])
+                'unit_price': '%s %.2f' % (item['currency'], item['price']),
+                'total': '%s %.2f' % (item['currency'], item['price'] * item['quantity'])
             }
             rows.append(row)
         return rows
+
+    def price_total(self):
+        total = 0.0
+        for item in self.items():
+            total += item['price'] * item['quantity']
+        return '%s %.2f' % (self.request.get('currency'), total)
 
     def items(self):
         items = []
@@ -80,6 +92,7 @@ class Checkout(form.SchemaForm):
                 'price': float(self.request.get('item_price_%s' % i)),
                 'quantity': int(self.request.get('item_quantity_%s' % i)),
                 'currency': self.request.get('currency'),
+                'meta_type': 'product'
             }
 
             options = self.request.get('item_options_%s' % i).strip()
@@ -88,10 +101,33 @@ class Checkout(form.SchemaForm):
                     match = optionspattern.match(entry)
                     if match:
                         key, value = match.groups()
-                        item[key.strip()] = value.strip()
+                        if key not in ['meta_type']:
+                            item[key.strip()] = value.strip()
 
             items.append(item)
 
+        # shipment
+        # XXX: FIXME: shipment right now is calculated only for clothing
+        totalshirts = 0
+        for i in items:
+            totalshirts += item['quantity']
+
+        if totalshirts >= 3:
+            items.append({
+                'name': 'FREE Shipment',
+                'price': 0.0,
+                'quantity': 1,
+                'currency': self.request.get('currency'),
+                'meta_type': 'shipment'
+            })
+        elif totalshirts in [1, 2]:
+            items.append({
+                'name': 'Shipment',
+                'price': 7.0,
+                'quantity': 1,
+                'currency': self.request.get('currency'),
+                'meta_type': 'shipment'
+            })
         return items
 
     def cart_hiddeninput(self):
@@ -145,3 +181,14 @@ class CheckoutSuccess(grok.View):
     grok.name('checkout_success')
     grok.require('zope2.View')
     grok.template('checkout_success')
+
+class DefaultItemTitle(grok.Adapter):
+    grok.context(IContentish)
+    grok.implements(IItemTitle)
+
+    def __init__(self, context):
+        self.context = context
+
+    def getTitle(self, data):
+        return self.context.Title()
+
