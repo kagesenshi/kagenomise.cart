@@ -4,9 +4,8 @@
     CART POPOVER
 ********************************/
 
-.cartInfo {
+.cartButton {
     width: 60px;
-    background: #EFF1F4 url(sprite.png) -218px -2px;
     font-size: 13px;
     font-weight: bold;
     color: #6e6e6e;
@@ -20,10 +19,25 @@
     padding: 7px 8px 6px 33px;
     line-height: 18px;
     position: relative;
-    margin-left: 30px;
     cursor: pointer;
     -webkit-transition: background-color .2s linear;
     float:right;
+    margin-left:10px;
+}
+
+.cartInfo {
+    background: #EFF1F4 url(sprite.png) -218px -2px;
+}
+
+.cartCheckout {
+    background: #97c865;
+    width:auto;
+    padding: 7px 8px 6px 8px;
+}
+
+.cartCheckout a {
+    color: #fff;
+    text-shadow: 1px 1px 0 #aaa;
 }
 
 #cartPopover{
